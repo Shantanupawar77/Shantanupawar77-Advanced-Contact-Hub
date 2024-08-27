@@ -2,22 +2,67 @@
 <html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
 
 <head>
-    <title>About Page</title>
+    <title>Smart Contact Hub</title>
+
 </head>
 
 <body>
     <div id="content">
-        <h1>Welcome to about page</h1>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur,
-            ratione!
-        </p>
+        <div class="grid grid-cols-12 mt-4">
+            <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-4"></div>
+            <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-4">
+                <div
+                    class="block p-5 border-t-[10px] border-blue-700 bg-white rounded-xl shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-blue-700 dark:hover:bg-gray-700">
+                    <!-- message here -->
+
+                    <div data-th-replace="message::messagebox"></div>
+
+                    <h5 class="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        Smart Contact Hub
+                    </h5>
+
+                <div class="about-header">
+                    <h1>About Our Project</h1>
+                    <p class="lead">Discover the mission and technology behind our innovative project.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Our Mission</h2>
+                    <p>
+                        Our project was developed with a vision to improve user interactions and enhance productivity. We focus
+                        on creating seamless experiences using modern technologies and best practices in web development.
+                    </p>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Technologies Used</h2>
+                    <p>
+                        To bring this project to life, we utilized a powerful stack of technologies that ensure both efficiency
+                        and scalability:
+                    </p>
+                    <ul>
+                        <li><strong>Frontend:</strong> HTML, CSS, Bootstrap, JavaScript</li>
+                        <li><strong>Backend:</strong> Node.js, Spring Boot, PHP</li>
+                        <li><strong>Database:</strong> MySQL, MongoDB</li>
+                        <li><strong>Other:</strong> Docker, Kubernetes, RESTful APIs</li>
+                    </ul>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Future Enhancements</h2>
+                    <p>
+                        As part of our commitment to continuous improvement, we are planning to implement real-time data
+                        analytics, enhanced security protocols, and third-party service integration for even more advanced
+                        functionality.
+                    </p>
+                </div>
+
+                </div>
+            </div>
+        </div>
     </div>
     <script>
-        console.log("about page");
-    </script>
-    <script>
-        console.log("second about page script");
+        console.log("Signup page");
     </script>
 </body>
 

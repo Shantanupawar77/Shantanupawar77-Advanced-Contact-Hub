@@ -1,22 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{})}">
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
 
 <head>
+    <title>Smart Contact Hub</title>
 
-    <title>
-        Services
-    </title>
 </head>
 
 <body>
-    <section id="content">
-        <h1>Welcome to services page</h1>
-        <h2>Services offered by SCM</h2>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dolore assumenda rerum harum mollitia incidunt
-        nesciunt dignissimos esse dicta reprehenderit quam, quisquam aspernatur enim consequatur accusamus, minima alias
-        odit ducimus.<10></10>
-    </section>
+    <div id="content">
+        <div class="grid grid-cols-12 mt-4">
+            <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-4"></div>
+            <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-4">
+                <div
+                    class="block p-5 border-t-[10px] border-blue-700 bg-white rounded-xl shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-blue-700 dark:hover:bg-gray-700">
+                    <!-- message here -->
 
+                    <div data-th-replace="message::messagebox"></div>
+
+                    <h5 class="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        Smart Contact Hub
+                    </h5>
+                    <h2>Our Services</h2>
+                    <h3>What We Offer</h3>
+                    <p>
+                        At SCM, we are committed to providing exceptional services to our clients. Our services include
+                        a wide range
+                        of solutions tailored to meet your needs. We offer expert consulting, innovative technology
+                        solutions, and
+                        comprehensive support to ensure your success. Whether you're looking for strategic guidance or
+                        technical
+                        expertise, our team is here to assist you every step of the way.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log("Signup page");
+    </script>
 </body>
 
 </html>
