@@ -13,40 +13,11 @@ import com.scm.services.impl.SecurityCustomUserDetailService;
 
 @Configuration
 public class SecurityConfig {
-
-    // user create and login using java code with in memory service
-
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-
-    // UserDetails user1 = User
-    // .withDefaultPasswordEncoder()
-    // .username("admin123")
-    // .password("admin123")
-    // .roles("ADMIN", "USER")
-    // .build();
-
-    // UserDetails user2 = User
-    // .withDefaultPasswordEncoder()
-    // .username("user123")
-    // .password("password")
-    // // .roles(null)
-    // .build();
-
-    // var inMemoryUserDetailsManager = new InMemoryUserDetailsManager(user1,
-    // user2);
-    // return inMemoryUserDetailsManager;
-
-    // }
-
     @Autowired
     private SecurityCustomUserDetailService userDetailService;
 
     @Autowired
     private OAuthAuthenicationSuccessHandler handler;
-
-    @Autowired
-    private AuthFailtureHandler authFailtureHandler;
 
     // configuraiton of authentication providerfor spring security
     @Bean
@@ -87,32 +58,7 @@ public class SecurityConfig {
             formLogin.usernameParameter("email");
             formLogin.passwordParameter("password");
 
-            // formLogin.failureHandler(new AuthenticationFailureHandler() {
-
-            // @Override
-            // public void onAuthenticationFailure(HttpServletRequest request,
-            // HttpServletResponse response,
-            // AuthenticationException exception) throws IOException, ServletException {
-            // // TODO Auto-generated method stub
-            // throw new UnsupportedOperationException("Unimplemented method
-            // 'onAuthenticationFailure'");
-            // }
-
-            // });
-
-            // formLogin.successHandler(new AuthenticationSuccessHandler() {
-
-            // @Override
-            // public void onAuthenticationSuccess(HttpServletRequest request,
-            // HttpServletResponse response,
-            // Authentication authentication) throws IOException, ServletException {
-            // // TODO Auto-generated method stub
-            // throw new UnsupportedOperationException("Unimplemented method
-            // 'onAuthenticationSuccess'");
-            // }
-
-            // });
-            formLogin.failureHandler(authFailtureHandler);
+           
 
         });
 

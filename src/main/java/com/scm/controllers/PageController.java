@@ -1,6 +1,7 @@
 package com.scm.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,9 +35,8 @@ public class PageController {
     public String home(Model model) {
         System.out.println("Home page handler");
         // sending data to view
-        model.addAttribute("name", "Substring Technologies");
-        model.addAttribute("youtubeChannel", "Learn Code With Durgesh");
-        model.addAttribute("githubRepo", "https://github.com/learncodewithdurgesh/");
+       
+        model.addAttribute("githubRepo", "/images/default.jpg");
         return "home";
     }
 
@@ -85,60 +85,87 @@ public class PageController {
 
     // processing register
 
+    // @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    // public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult,
+    //         HttpSession session) {
+    //     System.out.println("Processing registration");
+    //     // fetch form data
+    //     // UserForm
+    //     System.out.println(userForm);
+
+    //     // validate form data
+    //     if (rBindingResult.hasErrors()) {
+    //         return "register";
+    //     }
+
+    //     User user = new User();
+    //     user.setName(userForm.getName());
+    //     user.setEmail(userForm.getEmail());
+    //     user.setPassword(userForm.getPassword());
+    //     user.setAbout(userForm.getAbout());
+    //     user.setPhoneNumber(userForm.getPhoneNumber());
+    //     user.setEnabled(true);
+    //     user.setProfilePic(
+    //             "/images/default.jpg");
+
+    //     User savedUser = userService.saveUser(user);
+
+    //     System.out.println("user saved :");
+
+    //     // message = "Registration Successful"
+
+    //     // add the message:
+
+    //     Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+
+    //     session.setAttribute("message", message);
+
+    //     // redirectto login page
+    //     return "redirect:/register";
+    // }
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult,
-            HttpSession session) {
-        System.out.println("Processing registration");
-        // fetch form data
-        // UserForm
-        System.out.println(userForm);
+public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult,
+        HttpSession session, Model model) {
+    System.out.println("Processing registration");
 
-        // validate form data
-        if (rBindingResult.hasErrors()) {
-            return "register";
-        }
+    if (rBindingResult.hasErrors()) {
+        return "register";
+    }
 
-        // TODO::Validate userForm[Next Video]
-
-        // save to database
-
-        // userservice
-
-        // UserForm--> User
-        // User user = User.builder()
-        // .name(userForm.getName())
-        // .email(userForm.getEmail())
-        // .password(userForm.getPassword())
-        // .about(userForm.getAbout())
-        // .phoneNumber(userForm.getPhoneNumber())
-        // .profilePic(
-        // "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75")
-        // .build();
-
+    try {
         User user = new User();
         user.setName(userForm.getName());
         user.setEmail(userForm.getEmail());
         user.setPassword(userForm.getPassword());
         user.setAbout(userForm.getAbout());
         user.setPhoneNumber(userForm.getPhoneNumber());
-        user.setEnabled(false);
-        user.setProfilePic(
-                "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75");
+        user.setEnabled(true);
+        user.setProfilePic("/images/default.jpg");
 
         User savedUser = userService.saveUser(user);
+        System.out.println("User saved:");
 
-        System.out.println("user saved :");
-
-        // message = "Registration Successful"
-
-        // add the message:
-
+        // Add success message to session
         Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
-
         session.setAttribute("message", message);
 
-        // redirectto login page
         return "redirect:/register";
+
+    } catch (DataIntegrityViolationException e) {
+        // Handle duplicate entry error
+        System.out.println("Duplicate entry error: " + e.getMessage());
+
+        Message errorMessage = Message.builder()
+                .content("Email already exists. Please use a different email.")
+                .type(MessageType.red)
+                .build();
+        session.setAttribute("message", errorMessage);
+
+        // Re-add the userForm object to the model to preserve form data
+        model.addAttribute("userForm", userForm);
+        
+        return "register";
     }
+}
 
 }

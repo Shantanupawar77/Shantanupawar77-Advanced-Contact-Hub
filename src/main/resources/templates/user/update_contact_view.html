@@ -7,6 +7,9 @@
 
 <body>
     <div id="content">
+        <!-- sidebar -->
+
+        <!-- user is logged in : sidebar -->
 
         <div th:if="${loggedInUser}">
             <div data-th-replace="~{user/sidebar :: sidebar}"></div>
@@ -20,13 +23,9 @@
                         class="card block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                         <div data-th-replace="message::messagebox"></div>
 
-                        <h1 class="text-2xl font-semibold">Add New Contact</h1>
-                        <p class="text-gray-500">
-                            This contact will be stored on cloud, you can direct email this
-                            client from scm...
-                        </p>
+                        <h1 class="text-2xl font-semibold">Update Contact</h1>
 
-                        <form action="" class="mt-8" data-th-action="@{'/user/contacts/add'}"
+                        <form class="mt-8" data-th-action="@{'/user/contacts/update/' + ${contactId}}"
                             data-th-object="${contactForm}" method="post" enctype="multipart/form-data">
                             <!-- name form -->
                             <div class="mb-3">
@@ -60,7 +59,7 @@
                                     </div>
                                     <input type="text" data-th-field="*{email}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="a@b.com" />
+                                        placeholder="example@gmail.com" />
                                 </div>
                                 <p class="text-red-500" data-th-if="${#fields.hasErrors('email')}"
                                     data-th-errors="*{email}">
@@ -80,7 +79,7 @@
                                     </div>
                                     <input data-th-field="*{phoneNumber}" type="text"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="" />
+                                        placeholder="9823525525" />
                                 </div>
                                 <p class="text-red-500" data-th-if="${#fields.hasErrors('phoneNumber')}"
                                     data-th-errors="*{phoneNumber}">
@@ -126,7 +125,7 @@
                                             </div>
                                             <input data-th-field="*{websiteLink}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="portfolio link" />
+                                                placeholder="htt://learncodewithdurgesh.com/" />
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +139,7 @@
                                             </div>
                                             <input type="text" data-th-field="*{linkedInLink}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="linkedin link" />
+                                                placeholder="htt://learncodewithdurgesh.com/" />
                                         </div>
                                     </div>
                                 </div>
@@ -159,8 +158,8 @@
                                     Invalid Name
                                 </p>
 
-                                <img class="max-h-52 mx-auto rounded-lg shadow m-3" src="" id="upload_image_preview"
-                                    alt="" />
+                                <img data-th-src="*{picture}" class="max-h-52 mx-auto rounded-lg shadow m-3"
+                                    id="upload_image_preview" alt="" />
                             </div>
 
                             <!-- favorite checkbox -->
@@ -176,9 +175,12 @@
                             <div class="button-container text-center">
                                 <button type="submit"
                                     class="px-3 py-2 dark:bg-blue-600 hover:dark:bg-blue-700 rounded bg-black text-white">
-                                    Add Contact
+                                    Update Contact
                                 </button>
-
+                                <button type="reset"
+                                    class="px-3 py-2 dark:bg-blue-600 hover:dark:bg-blue-700 rounded bg-black text-white">
+                                    Reset
+                                </button>
                             </div>
                         </form>
                     </div>
