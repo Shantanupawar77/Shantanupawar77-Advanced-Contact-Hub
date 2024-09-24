@@ -1,5 +1,5 @@
 console.log("Contacts.js");
-const baseURL = "http://localhost:8082";
+const baseURL = "https://shantanupawar77-sch.onrender.com";
 const viewContactModal = document.getElementById("view_contact_modal");
 
 // options with default values
